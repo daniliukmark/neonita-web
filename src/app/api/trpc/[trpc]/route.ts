@@ -9,8 +9,8 @@ function setCorsHeaders(res: Response) {
   res.headers.set("Access-Control-Allow-Headers", "*");
 }
 
-const handler = (req: Request) => {
-  fetchRequestHandler({
+const handler = async (req: Request): Promise<Response> => {
+  const response = await fetchRequestHandler({
     endpoint: "/api/trpc",
     req: req,
     router: appRouter,
@@ -19,6 +19,7 @@ const handler = (req: Request) => {
       console.error(`>>> tRPC Error on '${path}'`, error);
     },
   });
+  return response;
 };
 
 export { handler as GET, handler as POST };
