@@ -29,7 +29,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 const navigationLinks: { name: string; href: string }[] = [
   {
     name: "Home",
@@ -53,8 +53,10 @@ const Navbar = ({}) => {
   const pathname = usePathname();
   return (
     <div className="fixed top-0 z-10 w-full h-16 mx-auto backdrop-blur-sm">
-      <div className="container flex items-center justify-between w-full h-full gap-5 lg:max-w-screen-lg 2xl:max-w-screen-xl">
-        <div className="h-full py-4">
+      <div className="absolute top-0 z-20 w-full h-20 bg-gradient-to-b from-black to-transparent" />
+
+      <div className="container z-30 flex items-center justify-between w-full h-full gap-5 lg:max-w-screen-lg 2xl:max-w-screen-xl">
+        <div className="z-30 h-full py-4">
           <Link href="/">
             <Icons.logoXl className="hidden w-32 h-full sm:block invert" />
           </Link>
@@ -62,7 +64,7 @@ const Navbar = ({}) => {
             <Icons.logoSm className="block w-8 h-full sm:hidden invert" />
           </Link>
         </div>
-        <ul className="hidden gap-4 sm:flex justify-self-center">
+        <ul className="z-30 hidden gap-4 sm:flex justify-self-center">
           {navigationLinks.map((navigationLink, i) => (
             <Link
               className={buttonVariants({ variant: "ghost" })}
@@ -73,7 +75,7 @@ const Navbar = ({}) => {
             </Link>
           ))}
         </ul>
-        <ul className="flex items-center justify-end gap-8">
+        <ul className="z-30 flex items-center justify-end gap-8">
           <div className="w-6 h-6 cursor-pointer">
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -114,7 +116,7 @@ const Navbar = ({}) => {
               </SheetContent>
             </Sheet>
           </div>
-          <div className="w-8 h-8 cursor-pointer sm:hidden">
+          <div className="z-30 w-8 h-8 cursor-pointer sm:hidden">
             <Sheet>
               <SheetTrigger>
                 <Button variant={"ghost"} size={"icon"} asChild>
