@@ -19,7 +19,7 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
             title="Neon Sign Pizza Place"
             price={299.99}
             currency="$"
-            href="/"
+            id="123"
             className="block w-full h-96 sm:h-full"
           />
         </div>
@@ -33,7 +33,7 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
               title="Neon Sign Pizza Place place place"
               price={299.99}
               currency="$"
-              href="/"
+              id="456"
             />
           </div>
           <div className="overflow-hidden bg-black border-2 border-solid basis-1/2 rounded-2xl">
@@ -44,7 +44,7 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
               title="Neon Sign Pizza Place"
               price={299.99}
               currency="$"
-              href="/"
+              id="789"
             />
           </div>
         </div>
@@ -58,7 +58,7 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
             title="Neon Sign Pizza Place"
             price={299.99}
             currency="$"
-            href="/"
+            id="789"
             className="block w-full h-96"
           />
         </div>
@@ -72,7 +72,7 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
             title="Neon Sign Pizza Place"
             price={299.99}
             currency="$"
-            href="/"
+            id="1243255"
             className="block w-full h-96"
           />
         </div>

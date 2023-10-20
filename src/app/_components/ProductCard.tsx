@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { cn, truncateString } from "@/utils/utils";
 import Link from "next/link";
 import { buttonVariants } from "./ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { CssVariable } from "next/dist/compiled/@next/font";
 const ProductCard = ({
@@ -12,7 +12,7 @@ const ProductCard = ({
   image,
   className,
   size,
-  href,
+  id,
   title,
   price,
   isLoading = false,
@@ -23,7 +23,7 @@ const ProductCard = ({
   image: StaticImageData;
   className?: string | undefined;
   size: "sm" | "lg" | "xl" | "2xl";
-  href: string;
+  id: string;
   title: string;
   price: number;
   isLoading?: boolean;
@@ -32,7 +32,6 @@ const ProductCard = ({
   props?: any;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div
       onMouseEnter={() => {
@@ -82,10 +81,10 @@ const ProductCard = ({
               />
             </div>
           </div>
-          <Link className="w-full h-full cursor-pointer" href={href}>
+          <Link className="w-full h-full cursor-pointer" href="">
             <div
               className={cn(
-                "absolute inset-0 duration-300 bg-gradient-to-t from-black opacity-0 to-transparent",
+                "absolute inset-0 duration-300 bg-gradient-to-t from-black opacity-0 to-transparent ",
                 isHovered && "opacity-40"
               )}
             ></div>
@@ -126,7 +125,7 @@ const ProductCard = ({
             </div>
 
             <Link
-              href={href}
+              href=""
               className={cn(
                 buttonVariants({
                   variant: "ghost",

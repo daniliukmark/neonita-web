@@ -15,9 +15,7 @@ const TopPromoBanner: FC<TopPromoBannerProps> = ({
 }) => {
   return (
     <div className="container relative flex flex-col justify-between pb-4 overflow-hidden h-fit w-fit">
-      <Separator />
       {children}
-      <Separator />
     </div>
   );
 };
