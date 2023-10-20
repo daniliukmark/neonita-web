@@ -21,14 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "./ui/navigation-menu";
+
 import { usePathname } from "next/navigation";
 const navigationLinks: { name: string; href: string }[] = [
   {
@@ -64,12 +57,13 @@ const Navbar = ({}) => {
             <Icons.logoSm className="block w-8 h-full sm:hidden invert" />
           </Link>
         </div>
-        <ul className="z-30 hidden gap-4 sm:flex justify-self-center">
+        <ul className="z-30 hidden gap-4 justify-self-center sm:flex">
           {navigationLinks.map((navigationLink, i) => (
             <Link
               className={buttonVariants({ variant: "ghost" })}
               href={navigationLink.href}
               key={i}
+              
             >
               {navigationLink.name}
             </Link>

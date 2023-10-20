@@ -32,6 +32,7 @@ const ProductCard = ({
   props?: any;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
       onMouseEnter={() => {
@@ -50,7 +51,7 @@ const ProductCard = ({
               <AspectRatio className="bg-black " ratio={1 / 1}>
                 <Image
                   src={image}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
                   alt="Blured product photo"
                   fill
                   placeholder="blur"
@@ -64,7 +65,7 @@ const ProductCard = ({
                   src={image}
                   alt="Blured product photo"
                   fill
-                  sizes="(max-width: 768px) 10vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
                   placeholder="blur"
                   quality={1}
                 />
@@ -76,8 +77,7 @@ const ProductCard = ({
                 alt="Blured product photo"
                 fill
                 placeholder="blur"
-                quality={100}
-                sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
                 className="object-cover h-full max-h-full m-auto mix-blend-normal max-w-max "
               />
             </div>

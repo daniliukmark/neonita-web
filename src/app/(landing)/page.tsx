@@ -11,7 +11,7 @@ import HotOffers from "../_components/HotOffers";
 const della_Respira = Della_Respira({ weight: "400", subsets: ["latin"] });
 export default async function Home() {
   return (
-    <main className="flex flex-col items-center min-h-screen py-16 sm:py-20">
+    <main className="flex flex-col items-center pt-16 pb-4 sm:pt-20">
       <TopPromoBanner>
         <span className="py-4 text-lg font-normal text-center ">
           <span>
@@ -28,7 +28,6 @@ export default async function Home() {
       {/* Other produts Compilation or Companies we worked with */}
       {/* Statistics DotGothic16 */}
       {/* Guarantees */}
-      <div className="h-screen"></div>
     </main>
   );
 }
