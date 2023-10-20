@@ -26,7 +26,7 @@ export default async function FAQPage({
           <div className="block h-[16rem] mb-8 sm:hidden bg-stone-700 rounded-xl"></div>
           <div className="w-full h-[32rem] bg-stone-800 rounded-xl mb-8"></div>
         </div>
-        <div className="hidden sm:block basis-2/5 h-[40rem] bg-stone-700 rounded-xl"></div>
+        <div className=" hidden sm:block basis-2/5 h-[40rem] bg-stone-700 rounded-xl"></div>
       </div>
     </main>
   );
