@@ -35,10 +35,10 @@ const ProductCard = ({
   return (
     <div
       onMouseEnter={() => {
-        setIsHovered(!isHovered);
+        setIsHovered(true);
       }}
       onMouseLeave={() => {
-        setIsHovered(!isHovered);
+        setIsHovered(false);
       }}
       className={cn("relative overflow-hidden w-full h-full", className)}
     >

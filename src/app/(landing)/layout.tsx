@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { type ReactNode } from "react";
 import Navbar from "@/app/_components/Navbar";
 import Footer from "../_components/Footer";
+import { BgBlurImage } from "../_components/BgBlurredImage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <div className="fixed top-0 w-full min-h-screen -z-50 bg-gradient-to-b from-black to-stone-900" />
+      <BgBlurImage />
       <div className="flex flex-col justify-between min-h-screen text-white dark">
         <Navbar />
         <main>{children}</main>
