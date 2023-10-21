@@ -7,6 +7,7 @@ import { buttonVariants } from "./ui/Button";
 import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { CssVariable } from "next/dist/compiled/@next/font";
+
 const ProductCard = ({
   imageAspectRatio,
   image,
@@ -32,6 +33,7 @@ const ProductCard = ({
   props?: any;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
       onMouseEnter={() => {
@@ -81,7 +83,7 @@ const ProductCard = ({
               />
             </div>
           </div>
-          <Link className="w-full h-full cursor-pointer" href="">
+          <Link className="w-full h-full cursor-pointer" href={"/shop/" + id}>
             <div
               className={cn(
                 "absolute inset-0 duration-300 bg-gradient-to-t from-black opacity-0 to-transparent ",
@@ -125,7 +127,7 @@ const ProductCard = ({
             </div>
 
             <Link
-              href=""
+              href={"/shop/" + id}
               className={cn(
                 buttonVariants({
                   variant: "ghost",

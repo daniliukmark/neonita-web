@@ -5,7 +5,7 @@ import { AspectRatio } from "./ui/aspect-ratio";
 export const BgBlurImage = () => {
   return (
     <div className="fixed w-full h-full opacity-30 -z-40">
-      <div className="absolute w-1/2 mb-8 max-w-7xl rounded-xl">
+      <div className="absolute w-full mb-8 sm:w-1/2 max-w-7xl rounded-xl">
         <div className="absolute w-full opacity-70 -z-10 h-2/4 mix-blend-lighten blur-xl -left-1/2">
           <AspectRatio className="bg-black " ratio={1 / 1}>
             <Image
