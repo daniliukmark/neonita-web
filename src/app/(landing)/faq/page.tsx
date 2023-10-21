@@ -1,4 +1,3 @@
-import { serverClient } from "@/app/_trpc/serverClient";
 import {
   Accordion,
   AccordionContent,
@@ -8,10 +7,10 @@ import {
 
 export default async function FAQPage() {
   return (
-    <main className="flex flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between px-8 pt-24 sm:px-24">
       <div className="w-full max-w-2xl">
-        <h1 className="pb-4 text-5xl font-semibold">FAQ</h1>
-        <h1 className="pb-4 text-xl font-light">
+        <h1 className="pb-2 text-5xl font-semibold">FAQ</h1>
+        <h1 className="pb-4 text-base font-light ">
           Havent found answers here? You can contact us via email{" "}
         </h1>
 
