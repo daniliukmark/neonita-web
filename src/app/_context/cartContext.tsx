@@ -1,11 +1,14 @@
+"use client";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-type CartItem = {
+export type CartItem = {
   id: string;
   quantity: number;
   price: number;
 };
+
 type Cart = {
+  itemsIds: string[];
   cartItems: CartItem[];
   total: number;
 };
@@ -14,10 +17,11 @@ export const cartContext = createContext<{
   cart: Cart;
   addCartItem: (item: CartItem) => void;
   removeCartItem: (id: string) => void;
-  updateCartItem: (id: string, updatedItem: CartItem) => void;
+  updateCartItem: (updatedItem: CartItem, mode: "increment" | "set") => void;
   clearCart: () => void;
 }>({
   cart: {
+    itemsIds: [],
     cartItems: [],
     total: 0,
   },
@@ -28,72 +32,83 @@ export const cartContext = createContext<{
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<Cart>({ cartItems: [], total: 0 });
+  const [cart, setCart] = useState<Cart>({
+    itemsIds: [],
+    cartItems: [],
+    total: 0,
+  });
+
   const addCartItem = (newCartItem: CartItem) => {
     const updatedCart: Cart = { ...cart };
+    if (updatedCart.itemsIds.includes(newCartItem.id)) {
+      updateCartItem(newCartItem, "increment");
+      return;
+    }
+    updatedCart.itemsIds.push(newCartItem.id);
     updatedCart.cartItems.push(newCartItem);
+    updateCartTotal(updatedCart);
     setCart(updatedCart);
-    updateCartTotal();
   };
+
   const removeCartItem = (id: string) => {
-    const updatedCartItems = cart.cartItems.filter((cartItem) => {
-      cartItem.id != id;
+    const updatedCart: Cart = { ...cart };
+    const itemIndex = updatedCart.itemsIds.findIndex((value) => {
+      return value === id;
     });
-    const updatedCart: Cart = {
-      ...cart,
-      cartItems: updatedCartItems,
-    };
+    if (itemIndex !== -1) {
+      updatedCart.cartItems.slice(itemIndex);
+    }
+    updateCartTotal(updatedCart);
     setCart(updatedCart);
-    updateCartTotal();
   };
-  const updateCartItem = (id: string, updatedCartItem: CartItem) => {
-    const updatedCartItems = cart.cartItems.map((cartItem) => {
-      if (cartItem.id === id) {
-        return { ...cartItem, ...updatedCartItem };
+  const updateCartItem = (cartItem: CartItem, mode: "increment" | "set") => {
+    const updatedCart: Cart = { ...cart };
+    if (mode === "increment") {
+      const itemIndex = updatedCart.itemsIds.findIndex((value) => {
+        return value === cartItem.id;
+      });
+      if (itemIndex !== -1) {
+        updatedCart.cartItems[itemIndex].quantity += cartItem.quantity;
       }
-      return cartItem;
-    });
-    const updatedCart: Cart = {
-      ...cart,
-      cartItems: updatedCartItems,
-    };
+    }
+    if (mode === "set") {
+      const itemIndex = updatedCart.itemsIds.findIndex((value) => {
+        return value === cartItem.id;
+      });
+      if (itemIndex !== -1) {
+        updatedCart.cartItems[itemIndex].quantity = cartItem.quantity;
+      }
+    }
+    updateCartTotal(updatedCart);
     setCart(updatedCart);
-    updateCartTotal();
   };
   const clearCart = () => {
-    const updatedCart: Cart = { cartItems: [], total: 0 };
+    const updatedCart: Cart = {
+      itemsIds: [],
+      cartItems: [],
+      total: 0,
+    };
     setCart(updatedCart);
   };
-  const updateCartTotal = () => {
-    const updatedCart: Cart = { ...cart };
-    updatedCart.cartItems.forEach((cartItem) => {
+
+  const updateCartTotal = (updatedCart: Cart) => {
+    updatedCart.total = 0;
+    updatedCart.cartItems.forEach((cartItem, key) => {
       updatedCart.total += cartItem.price * cartItem.quantity;
     });
-    setCart(updatedCart);
   };
 
-  const storedCartItems = localStorage.getItem("cartItems");
-  const initialCartItems: CartItem[] = storedCartItems
-    ? JSON.parse(storedCartItems)
-    : [];
-  const initialCart: Cart = { cartItems: initialCartItems, total: 0 };
-  setCart(initialCart);
-  updateCartTotal();
-
   useEffect(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
-    const initialCartItems: CartItem[] = storedCartItems
-      ? JSON.parse(storedCartItems)
-      : [];
-    const initialCart: Cart = { cartItems: initialCartItems, total: 0 };
-    if (initialCart.cartItems.length > 0) {
+    const storedCartItems = localStorage.getItem("shoppingCart");
+    if (storedCartItems) {
+      localStorage.setItem("shoppingCart", JSON.stringify(cart));
+      const initialCart: Cart = JSON.parse(storedCartItems);
       setCart(initialCart);
-      updateCartTotal();
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cart));
+    localStorage.setItem("shoppingCart", JSON.stringify(cart));
   }, [cart]);
 
   return (

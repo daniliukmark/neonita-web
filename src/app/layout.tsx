@@ -1,3 +1,4 @@
+import { CartProvider } from "./_context/cartContext";
 import { TRPCReactProvider } from "./_trpc/Provider";
 import { Inter } from "next/font/google";
 
@@ -19,9 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <TRPCReactProvider>
-        <body className={inter.className}>{children}</body>
-      </TRPCReactProvider>
+      <CartProvider>
+        <TRPCReactProvider>
+          <body className={inter.className}>{children}</body>
+        </TRPCReactProvider>
+      </CartProvider>
     </html>
   );
 }
