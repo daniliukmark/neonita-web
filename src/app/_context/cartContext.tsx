@@ -101,10 +101,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedCartItems = localStorage.getItem("shoppingCart");
     if (storedCartItems) {
-      localStorage.setItem("shoppingCart", JSON.stringify(cart));
       const initialCart: Cart = JSON.parse(storedCartItems);
       setCart(initialCart);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
