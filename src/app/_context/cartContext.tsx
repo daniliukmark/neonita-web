@@ -53,7 +53,6 @@ const loadCartFromLocalStorage = () => {
     return storedCart ? JSON.parse(storedCart) : defaultCart;
   } else {
     return defaultCart;
-    console.warn("localStorage is not available in this environment.");
   }
 };
 

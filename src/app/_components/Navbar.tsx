@@ -23,6 +23,9 @@ import {
 import { usePathname } from "next/navigation";
 import { cartContext } from "../_context/cartContext";
 import { trpc } from "@/app/_trpc/client";
+import Image from "next/image";
+import { AspectRatio } from "./ui/aspect-ratio";
+import { truncateString } from "@/utils/utils";
 
 const navigationLinks: { name: string; href: string }[] = [
   {
@@ -119,17 +122,64 @@ const ShoppingCartItem = ({
     itemId: id,
   });
   return neonSign.data ? (
-    <div className="flex flex-col gap-2 mb-4">
-      <h1>{neonSign.data.name}</h1>
-      <h2>
-        {Number(neonSign.data.price)} {quantity}
-      </h2>
-      <h2>total: {quantity * Number(neonSign.data.price)}</h2>
+    <div className="flex h-40 gap-4 p-4 mb-4 border-2 border-solid rounded-lg bg-stone-900 max-h-32">
+      <div className="relative overflow-hidden rounded-sm basis-5/12">
+        <div className="absolute left-0 w-full h-full">
+          <AspectRatio
+            className="opacity-70 mix-blend-lighten blur-md"
+            ratio={1 / 1}
+          >
+            <Image
+              src={neonSign.data.image}
+              sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
+              alt="Blured product photo"
+              fill
+              unoptimized
+              placeholder="blur"
+              blurDataURL={neonSign.data.image}
+              quality={1}
+            />
+          </AspectRatio>
+        </div>
+        <div className="absolute right-0 w-full h-full">
+          <AspectRatio
+            className="opacity-70 mix-blend-lighten blur-md"
+            ratio={1 / 1}
+          >
+            <Image
+              src={neonSign.data.image}
+              sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
+              alt="Blured product photo"
+              fill
+              unoptimized
+              placeholder="blur"
+              blurDataURL={neonSign.data.image}
+              quality={1}
+            />
+          </AspectRatio>
+        </div>
+        <Image
+          src={neonSign.data.image}
+          fill
+          unoptimized
+          alt={neonSign.data.name}
+          className="object-cover h-full max-h-full m-auto mix-blend-normal max-w-max "
+        />
+      </div>
+      <div className="relative flex-1 font-semibold text-start text-stone-100 basis-5/12">
+        <h1 className="font-semibold ">
+          {truncateString(neonSign.data.name, 14)}
+        </h1>
+        <h2 className="font-light text-stone-300">
+          {Number(neonSign.data.price).toFixed(2)}$
+        </h2>
+      </div>
     </div>
   ) : (
     <h1>Loading...</h1>
   );
 };
+
 const ShoppingCartMenu = () => {
   const { cart, isCartMenuOpen, setIsCartMenuOpen } = useContext(cartContext);
 
@@ -149,20 +199,47 @@ const ShoppingCartMenu = () => {
           <Icons.cart />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-5/6">
         <SheetHeader>
           <SheetTitle>Shoping Cart</SheetTitle>
           <SheetDescription>
-            <div>
+            <div className="mt-2">
               {cart.itemsIds.length === 0 ? (
                 <span>
                   Add products of your choice to cart and they will show up
                   here. Go and try it!
                 </span>
               ) : (
-                neonSigns
+                <>
+                  <div>
+                    {neonSigns.length > 3 ? (
+                      <>
+                        {neonSigns[0]} {neonSigns[1]} {neonSigns[2]}
+                        <Link
+                          href={"/shop/checkout"}
+                          className="font-semibold text-center duration-300 text-stone-100 hover:underline"
+                          onClick={() => setIsCartMenuOpen(false)}
+                        >
+                          <div className="relative mx-4 my-4 leading-none">
+                            View more
+                            <br />
+                            ...
+                          </div>
+                        </Link>
+                      </>
+                    ) : (
+                      neonSigns
+                    )}
+                  </div>
+                  <h1 className="w-full text-base text-stone-100 text-end">
+                    Total:{" "}
+                    <span className="font-semibold">
+                      {cart.total.toFixed(2)}
+                    </span>
+                    $
+                  </h1>
+                </>
               )}
-              <h1>{cart.total}</h1>
             </div>
           </SheetDescription>
         </SheetHeader>
