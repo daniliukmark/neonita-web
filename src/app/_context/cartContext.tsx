@@ -1,5 +1,12 @@
 "use client";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 
 export type CartItem = {
   id: string;
@@ -12,9 +19,10 @@ type Cart = {
   cartItems: CartItem[];
   total: number;
 };
-
 export const cartContext = createContext<{
   cart: Cart;
+  isCartMenuOpen: boolean;
+  setIsCartMenuOpen: Dispatch<SetStateAction<boolean>>;
   addCartItem: (item: CartItem) => void;
   removeCartItem: (id: string) => void;
   updateCartItem: (updatedItem: CartItem, mode: "increment" | "set") => void;
@@ -29,17 +37,28 @@ export const cartContext = createContext<{
   removeCartItem: () => {},
   updateCartItem: () => {},
   clearCart: () => {},
+  isCartMenuOpen: false,
+  setIsCartMenuOpen: () => {},
 });
 
+const defaultCart = {
+  itemsIds: [],
+  cartItems: [],
+  total: 0,
+};
+
+const loadCartFromLocalStorage = () => {
+  const storedCart = localStorage.getItem("shoppingCart");
+  return storedCart ? JSON.parse(storedCart) : defaultCart;
+};
+
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<Cart>({
-    itemsIds: [],
-    cartItems: [],
-    total: 0,
-  });
+  const [cart, setCart] = useState(loadCartFromLocalStorage());
+  const [isCartMenuOpen, setIsCartMenuOpen] = useState<boolean>(false);
 
   const addCartItem = (newCartItem: CartItem) => {
     const updatedCart: Cart = { ...cart };
+    setIsCartMenuOpen(true);
     if (updatedCart.itemsIds.includes(newCartItem.id)) {
       updateCartItem(newCartItem, "increment");
       return;
@@ -49,7 +68,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     updateCartTotal(updatedCart);
     setCart(updatedCart);
   };
-
   const removeCartItem = (id: string) => {
     const updatedCart: Cart = { ...cart };
     const itemIndex = updatedCart.itemsIds.findIndex((value) => {
@@ -90,7 +108,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
     setCart(updatedCart);
   };
-
   const updateCartTotal = (updatedCart: Cart) => {
     updatedCart.total = 0;
     updatedCart.cartItems.forEach((cartItem, key) => {
@@ -99,9 +116,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem("shoppingCart");
-    if (storedCartItems) {
-      const initialCart: Cart = JSON.parse(storedCartItems);
+    const storedCart = localStorage.getItem("shoppingCart");
+    if (storedCart) {
+      const initialCart: Cart = JSON.parse(storedCart);
       setCart(initialCart);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,6 +132,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     <cartContext.Provider
       value={{
         cart: { ...cart },
+        isCartMenuOpen: isCartMenuOpen,
+        setIsCartMenuOpen: setIsCartMenuOpen,
         addCartItem: addCartItem,
         removeCartItem: removeCartItem,
         updateCartItem: updateCartItem,

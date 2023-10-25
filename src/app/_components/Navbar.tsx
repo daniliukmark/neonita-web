@@ -22,6 +22,7 @@ import {
 } from "./ui/sheet";
 import { usePathname } from "next/navigation";
 import { cartContext } from "../_context/cartContext";
+import { trpc } from "@/app/_trpc/client";
 
 const navigationLinks: { name: string; href: string }[] = [
   {
@@ -107,12 +108,42 @@ const LanguageMenu = ({
     </DropdownMenu>
   );
 };
+const ShoppingCartItem = ({
+  id,
+  quantity,
+}: {
+  id: number;
+  quantity: number;
+}) => {
+  const neonSign = trpc.neonSign.getById.useQuery({
+    itemId: id,
+  });
+  return neonSign.data ? (
+    <div className="flex flex-col gap-2 mb-4">
+      <h1>{neonSign.data.name}</h1>
+      <h2>
+        {Number(neonSign.data.price)} {quantity}
+      </h2>
+      <h2>total: {quantity * Number(neonSign.data.price)}</h2>
+    </div>
+  ) : (
+    <h1>Loading...</h1>
+  );
+};
 const ShoppingCartMenu = () => {
-  const { cart, addCartItem, removeCartItem, updateCartItem, clearCart } =
-    useContext(cartContext);
+  const { cart, isCartMenuOpen, setIsCartMenuOpen } = useContext(cartContext);
 
+  const neonSigns = cart.cartItems.map((item) => {
+    return (
+      <ShoppingCartItem
+        key={item.id}
+        id={Number(item.id)}
+        quantity={item.quantity}
+      />
+    );
+  });
   return (
-    <Sheet>
+    <Sheet open={isCartMenuOpen} onOpenChange={setIsCartMenuOpen}>
       <SheetTrigger>
         <Button variant={"ghost"} size={"icon"} asChild>
           <Icons.cart />
@@ -122,9 +153,17 @@ const ShoppingCartMenu = () => {
         <SheetHeader>
           <SheetTitle>Shoping Cart</SheetTitle>
           <SheetDescription>
-            Add products of your choice to cart and they will show up here. Go
-            and try it!
-            {cart.total}
+            <div>
+              {cart.itemsIds.length === 0 ? (
+                <span>
+                  Add products of your choice to cart and they will show up
+                  here. Go and try it!
+                </span>
+              ) : (
+                neonSigns
+              )}
+              <h1>{cart.total}</h1>
+            </div>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
