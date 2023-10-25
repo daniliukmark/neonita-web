@@ -47,11 +47,17 @@ const defaultCart = {
   total: 0,
 };
 
-export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const loadCartFromLocalStorage = () => {
+const loadCartFromLocalStorage = () => {
+  if (typeof localStorage !== "undefined") {
     const storedCart = localStorage.getItem("shoppingCart");
     return storedCart ? JSON.parse(storedCart) : defaultCart;
-  };
+  } else {
+    return defaultCart;
+    console.warn("localStorage is not available in this environment.");
+  }
+};
+
+export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState(loadCartFromLocalStorage());
   const [isCartMenuOpen, setIsCartMenuOpen] = useState<boolean>(false);
 
