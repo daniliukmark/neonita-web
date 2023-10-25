@@ -48,8 +48,12 @@ const defaultCart = {
 };
 
 const loadCartFromLocalStorage = () => {
-  const storedCart = localStorage.getItem("shoppingCart");
-  return storedCart ? JSON.parse(storedCart) : defaultCart;
+  if (typeof localStorage !== "undefined") {
+    const storedCart = localStorage.getItem("shoppingCart");
+    return storedCart ? JSON.parse(storedCart) : defaultCart;
+  } else {
+    console.warn("localStorage is not available in this environment.");
+  }
 };
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
