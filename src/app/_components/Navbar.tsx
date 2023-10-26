@@ -25,7 +25,7 @@ import { cartContext } from "../_context/cartContext";
 import { trpc } from "@/app/_trpc/client";
 import Image from "next/image";
 import { AspectRatio } from "./ui/aspect-ratio";
-import { truncateString } from "@/utils/utils";
+import { cn, truncateString } from "@/utils/utils";
 
 const navigationLinks: { name: string; href: string }[] = [
   {
@@ -123,7 +123,7 @@ const ShoppingCartItem = ({
   });
   const { updateCartItem, removeCartItem } = useContext(cartContext);
   return neonSign.data ? (
-    <div className="flex h-40 gap-4 p-4 mb-4 border-2 border-solid rounded-lg bg-stone-900 max-h-32">
+    <div className="flex h-40 gap-4 p-4 border-2 border-solid rounded-lg bg-stone-900 max-h-32">
       <div className="relative overflow-hidden rounded-sm basis-5/12">
         <div className="absolute left-0 w-full h-full">
           <AspectRatio
@@ -272,16 +272,28 @@ const ShoppingCartMenu = () => {
                         </Link>
                       </>
                     ) : (
-                      neonSigns
+                      <div className="flex flex-col gap-4">{neonSigns}</div>
                     )}
                   </div>
-                  <h1 className="w-full text-base text-stone-100 text-end">
-                    Total:{" "}
-                    <span className="font-semibold">
-                      {cart.total.toFixed(2)}
-                    </span>
-                    $
-                  </h1>
+                  <div className="flex items-center justify-between mt-3 ">
+                    <h1 className="flex-1 px-2 text-base text-stone-100 text-start">
+                      Total:{" "}
+                      <span className="font-semibold">
+                        {cart.total.toFixed(2)}
+                      </span>
+                      $
+                    </h1>
+                    <Link
+                      href="/shop/checkout"
+                      onClick={() => setIsCartMenuOpen(false)}
+                      className={cn(
+                        buttonVariants({ variant: "ghost" }),
+                        " rounded-full h-min  max-w-12 basis-auto "
+                      )}
+                    >
+                      {"To Checkout ->"}
+                    </Link>
+                  </div>
                 </>
               )}
             </div>
