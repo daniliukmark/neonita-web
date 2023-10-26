@@ -264,9 +264,7 @@ const ShoppingCartMenu = () => {
                           className="font-semibold text-center duration-300 text-stone-100 hover:underline"
                           onClick={() => setIsCartMenuOpen(false)}
                         >
-                          <div className="relative mx-4 my-4 leading-none">
-                            View more
-                            <br />
+                          <div className="relative mx-4 my-2 text-lg leading-none">
                             ...
                           </div>
                         </Link>
