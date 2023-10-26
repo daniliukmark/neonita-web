@@ -183,7 +183,7 @@ const ShoppingCartItem = ({
             }}
             className="w-8 h-8 p-2 duration-300 rounded-full text-stone-500 hover:text-stone-300 bg-stone-900 hover:bg-stone-500"
           />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 select-none">
             <span
               onClick={() => {
                 updateCartItem(
