@@ -77,8 +77,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const itemIndex = updatedCart.itemsIds.findIndex((value) => {
       return value === id;
     });
-    if (itemIndex !== -1) {
-      updatedCart.cartItems.slice(itemIndex);
+    if (itemIndex > -1) {
+      updatedCart.cartItems.splice(itemIndex, 1);
+      updatedCart.itemsIds.splice(itemIndex, 1);
     }
     updateCartTotal(updatedCart);
     setCart(updatedCart);
@@ -91,6 +92,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       });
       if (itemIndex !== -1) {
         updatedCart.cartItems[itemIndex].quantity += cartItem.quantity;
+        if (updatedCart.cartItems[itemIndex].quantity < 1) {
+          removeCartItem(cartItem.id);
+        }
       }
     }
     if (mode === "set") {
@@ -99,6 +103,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       });
       if (itemIndex !== -1) {
         updatedCart.cartItems[itemIndex].quantity = cartItem.quantity;
+        if (updatedCart.cartItems[itemIndex].quantity < 1) {
+          removeCartItem(cartItem.id);
+        }
       }
     }
     updateCartTotal(updatedCart);

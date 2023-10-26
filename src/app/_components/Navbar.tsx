@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button, buttonVariants } from "./ui/Button";
 import { Icons } from "@/app/_components/Icons";
 import { useContext, useState } from "react";
-import { Compass, Menu } from "lucide-react";
+import { Compass, Menu, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -121,6 +121,7 @@ const ShoppingCartItem = ({
   const neonSign = trpc.neonSign.getById.useQuery({
     itemId: id,
   });
+  const { updateCartItem, removeCartItem } = useContext(cartContext);
   return neonSign.data ? (
     <div className="flex h-40 gap-4 p-4 mb-4 border-2 border-solid rounded-lg bg-stone-900 max-h-32">
       <div className="relative overflow-hidden rounded-sm basis-5/12">
@@ -166,13 +167,56 @@ const ShoppingCartItem = ({
           className="object-cover h-full max-h-full m-auto mix-blend-normal max-w-max "
         />
       </div>
-      <div className="relative flex-1 font-semibold text-start text-stone-100 basis-5/12">
-        <h1 className="font-semibold ">
-          {truncateString(neonSign.data.name, 14)}
-        </h1>
-        <h2 className="font-light text-stone-300">
-          {Number(neonSign.data.price).toFixed(2)}$
-        </h2>
+      <div className="relative flex flex-col justify-between flex-1 p-1 font-semibold text-start text-stone-100 basis-5/12">
+        <div>
+          <h1 className="font-semibold ">
+            {truncateString(neonSign.data.name, 16)}
+          </h1>
+          <h2 className="font-light text-stone-300">
+            {Number(neonSign.data.price).toFixed(2)}$
+          </h2>
+        </div>
+        <div className="flex items-center justify-between gap-2">
+          <Trash2
+            onClick={() => {
+              removeCartItem(`${id}`);
+            }}
+            className="w-8 h-8 p-2 duration-300 rounded-full text-stone-500 hover:text-stone-300 bg-stone-900 hover:bg-stone-500"
+          />
+          <div className="flex items-center gap-2">
+            <span
+              onClick={() => {
+                updateCartItem(
+                  {
+                    id: `${id}`,
+                    price: Number(neonSign.data?.price),
+                    quantity: 1,
+                  },
+                  "increment"
+                );
+              }}
+              className="px-2 text-lg font-light duration-300 rounded-full text-stone-500 hover:text-stone-300 bg-stone-900 hover:bg-stone-500"
+            >
+              +
+            </span>
+            <span>{quantity}</span>
+            <span
+              onClick={() => {
+                updateCartItem(
+                  {
+                    id: `${id}`,
+                    price: Number(neonSign.data?.price),
+                    quantity: -1,
+                  },
+                  "increment"
+                );
+              }}
+              className="px-2.5 text-lg text-stone-500 hover:text-stone-300 font-light duration-300 rounded-full bg-stone-900 hover:bg-stone-500"
+            >
+              -
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   ) : (
