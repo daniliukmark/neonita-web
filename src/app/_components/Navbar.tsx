@@ -243,7 +243,7 @@ const ShoppingCartMenu = () => {
           <Icons.cart />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-5/6">
+      <SheetContent className="w-5/6 ">
         <SheetHeader>
           <SheetTitle>Shoping Cart</SheetTitle>
           <SheetDescription>
@@ -258,7 +258,9 @@ const ShoppingCartMenu = () => {
                   <div>
                     {neonSigns.length > 3 ? (
                       <>
-                        {neonSigns[0]} {neonSigns[1]} {neonSigns[2]}
+                        <div className="flex flex-col gap-4">
+                          {neonSigns[0]} {neonSigns[1]} {neonSigns[2]}
+                        </div>
                         <Link
                           href={"/shop/checkout"}
                           className="font-semibold text-center duration-300 text-stone-100 hover:underline"
