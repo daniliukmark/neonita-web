@@ -52,11 +52,12 @@ const ProductCard = ({
               <AspectRatio className="bg-black " ratio={1 / 1}>
                 <Image
                   src={image}
-                  sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
+                  // sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
                   alt="Blured product photo"
                   fill
-                  placeholder="blur"
-                  quality={1}
+                  unoptimized
+                  // placeholder="blur"
+                  // quality={1}
                 />
               </AspectRatio>
             </div>
@@ -66,9 +67,10 @@ const ProductCard = ({
                   src={image}
                   alt="Blured product photo"
                   fill
-                  sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
-                  placeholder="blur"
-                  quality={1}
+                  unoptimized
+                  // sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
+                  // placeholder="blur"
+                  // quality={1}
                 />
               </AspectRatio>
             </div>
@@ -77,8 +79,9 @@ const ProductCard = ({
                 src={image}
                 alt="Blured product photo"
                 fill
-                placeholder="blur"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                unoptimized
+                // placeholder="blur"
+                // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
                 className="object-cover h-full max-h-full m-auto mix-blend-normal max-w-max "
               />
             </div>

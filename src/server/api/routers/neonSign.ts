@@ -1,4 +1,5 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import next from "next";
 import { z } from "zod";
 export const neonSignRouter = createTRPCRouter({
   getById: publicProcedure
@@ -6,6 +7,30 @@ export const neonSignRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       const { itemId } = input;
       return ctx.db.neonSign.findFirst({ where: { id: itemId } });
+    }),
+  pagination: publicProcedure
+    .input(
+      z.object({
+        cursor: z.number().min(1),
+        limit: z.number().nullish(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 9;
+      const { cursor } = input;
+      const items = await ctx.db.neonSign.findMany({
+        cursor: cursor ? { id: cursor } : undefined,
+        take: limit + 1,
+      });
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (items.length > limit) {
+        const nextItem = items.pop();
+        nextCursor = nextItem!.id;
+      }
+      return {
+        items,
+        nextCursor,
+      };
     }),
   getRandom: publicProcedure.query(({ ctx }) => {
     const random = Math.floor(Math.random() * 20) + 1;

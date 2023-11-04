@@ -1,7 +1,6 @@
 import { serverClient } from "@/app/_trpc/serverClient";
 import Image from "next/image";
 import { AspectRatio } from "@/app/_components/ui/aspect-ratio";
-import { Button } from "@/app/_components/ui/Button";
 import {
   Accordion,
   AccordionContent,
