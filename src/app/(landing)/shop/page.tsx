@@ -55,15 +55,15 @@ const OptionBar = ({
   );
   return (
     <div>
-      <h2 className="text-stone-400">Sort by</h2>
-      <div className="flex flex-row flex-wrap gap-4 sm:gap-0 sm:flex-col">
+      <h2 className="text-stone-300">Sort by</h2>
+      <div className="flex flex-row flex-wrap sm:gap-0 sm:flex-col">
         <span
           onClick={() =>
             router.push(
               pathname + "?" + createQueryString("sort_by", "trending")
             )
           }
-          className="cursor-pointer text-stone-100 hover:underline"
+          className="mr-4 cursor-pointer text-stone-100 hover:underline"
         >
           Trending
         </span>
@@ -71,7 +71,7 @@ const OptionBar = ({
           onClick={() =>
             router.push(pathname + "?" + createQueryString("sort_by", "new"))
           }
-          className="cursor-pointer text-stone-100 hover:underline"
+          className="mr-4 cursor-pointer text-stone-100 hover:underline"
         >
           New
         </span>
@@ -81,7 +81,7 @@ const OptionBar = ({
               pathname + "?" + createQueryString("sort_by", "price_asc")
             )
           }
-          className="cursor-pointer text-stone-100 hover:underline"
+          className="mr-4 cursor-pointer text-stone-100 hover:underline"
         >
           Price: Low to high
         </span>
@@ -91,7 +91,7 @@ const OptionBar = ({
               pathname + "?" + createQueryString("sort_by", "price_desc")
             )
           }
-          className="cursor-pointer text-stone-100m hover:underline"
+          className="mr-4 cursor-pointer text-stone-100m hover:underline"
         >
           Price: High to low
         </span>
@@ -99,7 +99,7 @@ const OptionBar = ({
           onClick={() =>
             router.push(pathname + "?" + createQueryString("sort_by", "none"))
           }
-          className="cursor-pointer text-stone-100m hover:underline"
+          className="mr-4 cursor-pointer text-stone-100m hover:underline"
         >
           None
         </span>
