@@ -1,7 +1,12 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import next from "next";
 import { z } from "zod";
 export const neonSignRouter = createTRPCRouter({
+  getMultipleById: publicProcedure
+    .input(z.object({ ids: z.number().array() }))
+    .query(({ ctx, input }) => {
+      const { ids } = input;
+      return ctx.db.neonSign.findMany({ where: { id: { in: ids } } });
+    }),
   getById: publicProcedure
     .input(z.object({ itemId: z.number() }))
     .query(({ ctx, input }) => {

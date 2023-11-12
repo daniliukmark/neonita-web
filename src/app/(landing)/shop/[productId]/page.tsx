@@ -65,7 +65,9 @@ export default async function FAQPage({
 }: {
   params: { productId: string };
 }) {
-  const neonSign = await serverClient.neonSign.getRandom();
+  const neonSign = await serverClient.neonSign.getById({
+    itemId: Number(params.productId),
+  });
 
   return (
     <main className="flex flex-col items-center justify-between pt-24 ">

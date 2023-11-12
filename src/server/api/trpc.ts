@@ -1,11 +1,15 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { db } from "@/server/db";
+import * as trpcNext from "@trpc/server/adapters/next";
 import { ZodError } from "zod";
 
-const createTRPCContext = () => {
-  return { db };
-};
+export async function createTRPCContext({
+  req,
+  res,
+}: trpcNext.CreateNextContextOptions) {
+  return { db, req };
+}
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,

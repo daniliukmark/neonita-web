@@ -18,9 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <>
       <div className="fixed top-0 w-full min-h-screen -z-50 bg-gradient-to-b from-black to-stone-900" />
       <BgBlurImage position="fixed" />
-      <div className="flex flex-col justify-between min-h-screen text-white dark">
+      <div className="flex flex-col justify-between h-full min-h-screen text-white dark">
         <Navbar />
-        <main>{children}</main>
+        <main className="relative flex-1">{children}</main>
         <Footer />
       </div>
     </>

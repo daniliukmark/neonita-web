@@ -1,12 +1,14 @@
 import { FC } from "react";
 import ProductCard from "./ProductCard";
-import mainImage from "@/assets/uno.jpeg";
-import seconadary1Image from "@/assets/flower.jpeg";
-import seconadary2Image from "@/assets/atSIgn.jpg";
-
+import { serverClient } from "../_trpc/serverClient";
 interface HotOffersProps {}
+const productIds = [4, 2, 3];
 
-const HotOffers: FC<HotOffersProps> = ({}) => {
+const HotOffers: FC<HotOffersProps> = async ({}) => {
+  const products = await serverClient.neonSign.getMultipleById({
+    ids: productIds,
+  });
+
   return (
     <>
       <div className="px-4 w-full gap-5 lg:max-w-screen-lg 2xl:max-w-screen-xl flex sm:h-[40rem] ">
@@ -15,11 +17,11 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
           <ProductCard
             imageAspectRatio={1 / 1}
             size="2xl"
-            image={mainImage}
-            title="Neon Sign Pizza Place"
-            price={299.99}
+            image={products[0].image}
+            title={products[0].name}
+            price={Number(products[0].price)}
             currency="$"
-            id="123"
+            id={`${products[0].id}`}
             className="block w-full h-96 sm:h-full"
           />
         </div>
@@ -29,22 +31,23 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
             <ProductCard
               imageAspectRatio={1 / 1}
               size="sm"
-              image={seconadary1Image}
-              title="Neon Sign Pizza Place place place"
-              price={299.99}
+              image={products[1].image}
+              title={products[1].name}
+              price={Number(products[1].price)}
               currency="$"
-              id="456"
+              id={`${products[1].id}`}
+              className="block w-full"
             />
           </div>
           <div className="overflow-hidden bg-black border-2 border-solid basis-1/2 rounded-2xl">
             <ProductCard
               imageAspectRatio={1 / 1}
               size="sm"
-              image={seconadary2Image}
-              title="Neon Sign Pizza Place"
-              price={299.99}
+              image={products[2].image}
+              title={products[2].name}
+              price={Number(products[2].price)}
               currency="$"
-              id="789"
+              id={`${products[2].id}`}
             />
           </div>
         </div>
@@ -54,11 +57,11 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
           <ProductCard
             imageAspectRatio={1 / 1}
             size="2xl"
-            image={seconadary1Image}
-            title="Neon Sign Pizza Place"
-            price={299.99}
+            image={products[1].image}
+            title={products[1].name}
+            price={Number(products[1].price)}
             currency="$"
-            id="789"
+            id={`${products[1].id}`}
             className="block w-full h-96"
           />
         </div>
@@ -68,11 +71,11 @@ const HotOffers: FC<HotOffersProps> = ({}) => {
           <ProductCard
             imageAspectRatio={1 / 1}
             size="2xl"
-            image={seconadary2Image}
-            title="Neon Sign Pizza Place"
-            price={299.99}
+            image={products[2].image}
+            title={products[2].name}
+            price={Number(products[2].price)}
             currency="$"
-            id="1243255"
+            id={`${products[2].id}`}
             className="block w-full h-96"
           />
         </div>

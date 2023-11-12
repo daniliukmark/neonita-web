@@ -20,10 +20,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <meta property="og:image" content="src/assets/uno.jpeg" />
-      <meta property="og:image:type" content="src/assets/uno.jpeg" />
-      <meta property="og:image:width" content="src/assets/uno.jpeg" />
-      <meta property="og:image:height" content="src/assets/uno.jpeg" />
       <CartProvider>
         <TRPCReactProvider>
           <body className={inter.className}>{children}</body>

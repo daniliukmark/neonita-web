@@ -1,4 +1,6 @@
 "use client";
+import { useParams, useSearchParams } from "next/navigation";
+
 import {
   Dispatch,
   ReactNode,
@@ -14,7 +16,7 @@ export type CartItem = {
   price: number;
 };
 
-type Cart = {
+export type Cart = {
   itemsIds: string[];
   cartItems: CartItem[];
   total: number;
@@ -27,6 +29,7 @@ export const cartContext = createContext<{
   removeCartItem: (id: string) => void;
   updateCartItem: (updatedItem: CartItem, mode: "increment" | "set") => void;
   clearCart: () => void;
+  setCart: Dispatch<SetStateAction<Cart>>;
 }>({
   cart: {
     itemsIds: [],
@@ -39,6 +42,7 @@ export const cartContext = createContext<{
   clearCart: () => {},
   isCartMenuOpen: false,
   setIsCartMenuOpen: () => {},
+  setCart: () => {},
 });
 
 const defaultCart = {
@@ -48,16 +52,16 @@ const defaultCart = {
 };
 
 const loadCartFromLocalStorage = () => {
-  if (typeof localStorage !== "undefined") {
-    const storedCart = localStorage.getItem("shoppingCart");
+  if (typeof window !== "undefined") {
+    const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : defaultCart;
-  } else {
-    return defaultCart;
   }
 };
-
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState(loadCartFromLocalStorage());
+  const [cart, setCart] = useState<Cart>(
+    () => loadCartFromLocalStorage() || defaultCart
+  );
+
   const [isCartMenuOpen, setIsCartMenuOpen] = useState<boolean>(false);
 
   const addCartItem = (newCartItem: CartItem) => {
@@ -127,16 +131,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("shoppingCart");
-    if (storedCart) {
-      const initialCart: Cart = JSON.parse(storedCart);
-      setCart(initialCart);
+    if (window !== undefined) {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        const initialCart: Cart = JSON.parse(storedCart);
+        setCart(initialCart);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("shoppingCart", JSON.stringify(cart));
+    if (window !== undefined) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   return (
@@ -149,6 +157,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         removeCartItem: removeCartItem,
         updateCartItem: updateCartItem,
         clearCart: clearCart,
+        setCart: setCart,
       }}
     >
       {children}

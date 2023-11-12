@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Button, buttonVariants } from "./ui/Button";
 import { Icons } from "@/app/_components/Icons";
-import { useContext, useState } from "react";
+import { StyleHTMLAttributes, useContext, useState } from "react";
 import { Compass, Menu, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
@@ -59,26 +59,28 @@ const MobileNavigationMenu = () => {
           <SheetTitle>
             <Compass className="w-8 h-8" />
           </SheetTitle>
-          <SheetDescription>
-            {navigationLinks.map((navigationLink, i) => (
-              <Link
-                className="flex flex-col justify-around h-20 gap-5 text-3xl"
-                href={navigationLink.href}
-                key={i}
-              >
-                <SheetClose asChild>
-                  <span
-                    className={`${
-                      pathname == navigationLink.href && "text-stone-100"
-                    }`}
-                  >
-                    {navigationLink.name}
-                  </span>
-                </SheetClose>
-              </Link>
-            ))}
-          </SheetDescription>
         </SheetHeader>
+        <div className="flex flex-col items-center w-full">
+          {navigationLinks.map((navigationLink, i) => (
+            <Link
+              className="flex flex-col justify-around h-20 gap-5 text-3xl"
+              href={navigationLink.href}
+              key={i}
+            >
+              <SheetClose asChild>
+                <span
+                  className={cn(
+                    "text-stone-300",
+                    pathname == navigationLink.href &&
+                      "text-stone-100 font-semibold"
+                  )}
+                >
+                  {navigationLink.name}
+                </span>
+              </SheetClose>
+            </Link>
+          ))}
+        </div>
       </SheetContent>
     </Sheet>
   );
@@ -111,19 +113,26 @@ const LanguageMenu = ({
     </DropdownMenu>
   );
 };
-const ShoppingCartItem = ({
+export const ShoppingCartItem = ({
   id,
   quantity,
+  className,
 }: {
   id: number;
   quantity: number;
+  className?: string;
 }) => {
   const neonSign = trpc.neonSign.getById.useQuery({
     itemId: id,
   });
   const { updateCartItem, removeCartItem } = useContext(cartContext);
   return neonSign.data ? (
-    <div className="flex h-40 gap-4 p-4 border-2 border-solid rounded-lg bg-stone-900 max-h-32">
+    <div
+      className={cn(
+        "flex h-32 gap-4 p-4 border-2 border-solid rounded-lg bg-stone-900 ",
+        className
+      )}
+    >
       <div className="relative overflow-hidden rounded-sm basis-5/12">
         <div className="absolute left-0 w-full h-full">
           <AspectRatio
@@ -169,7 +178,7 @@ const ShoppingCartItem = ({
       </div>
       <div className="relative flex flex-col justify-between flex-1 p-1 font-semibold text-start text-stone-100 basis-5/12">
         <div>
-          <h1 className="font-semibold ">
+          <h1 className="font-semibold">
             {truncateString(neonSign.data.name, 16)}
           </h1>
           <h2 className="font-light text-stone-300">
@@ -199,7 +208,7 @@ const ShoppingCartItem = ({
             >
               +
             </span>
-            <span>{quantity}</span>
+            <span className="">{quantity}</span>
             <span
               onClick={() => {
                 updateCartItem(
@@ -233,6 +242,7 @@ const ShoppingCartMenu = () => {
         key={item.id}
         id={Number(item.id)}
         quantity={item.quantity}
+        className="text-sm"
       />
     );
   });
@@ -246,59 +256,55 @@ const ShoppingCartMenu = () => {
       <SheetContent className="w-5/6 ">
         <SheetHeader>
           <SheetTitle>Shoping Cart</SheetTitle>
-          <SheetDescription>
-            <div className="mt-2">
-              {cart.itemsIds.length === 0 ? (
-                <span>
-                  Add products of your choice to cart and they will show up
-                  here. Go and try it!
-                </span>
-              ) : (
-                <>
-                  <div>
-                    {neonSigns.length > 3 ? (
-                      <>
-                        <div className="flex flex-col gap-4">
-                          {neonSigns[0]} {neonSigns[1]} {neonSigns[2]}
-                        </div>
-                        <Link
-                          href={"/shop/checkout"}
-                          className="font-semibold text-center duration-300 text-stone-100 hover:underline"
-                          onClick={() => setIsCartMenuOpen(false)}
-                        >
-                          <div className="relative mx-4 my-2 text-lg leading-none">
-                            ...
-                          </div>
-                        </Link>
-                      </>
-                    ) : (
-                      <div className="flex flex-col gap-4">{neonSigns}</div>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between mt-3 ">
-                    <h1 className="flex-1 px-2 text-base text-stone-100 text-start">
-                      Total:{" "}
-                      <span className="font-semibold">
-                        {cart.total.toFixed(2)}
-                      </span>
-                      $
-                    </h1>
-                    <Link
-                      href="/shop/checkout"
-                      onClick={() => setIsCartMenuOpen(false)}
-                      className={cn(
-                        buttonVariants({ variant: "ghost" }),
-                        " rounded-full h-min  max-w-12 basis-auto "
-                      )}
-                    >
-                      {"To Checkout ->"}
-                    </Link>
-                  </div>
-                </>
-              )}
-            </div>
-          </SheetDescription>
         </SheetHeader>
+        <div className="mt-2 text-light">
+          {cart.itemsIds.length === 0 ? (
+            <span className="font-light text-right text-stone-300">
+              Add products of your choice to cart and they will show up here. Go
+              and try it!
+            </span>
+          ) : (
+            <>
+              <div>
+                {neonSigns.length > 3 ? (
+                  <>
+                    <div className="flex flex-col gap-4">
+                      {neonSigns[0]} {neonSigns[1]} {neonSigns[2]}
+                    </div>
+                    <Link
+                      href={"/shop/checkout"}
+                      className="font-semibold text-center duration-300 text-stone-100 hover:underline"
+                      onClick={() => setIsCartMenuOpen(false)}
+                    >
+                      <div className="relative mx-4 my-2 text-lg leading-none">
+                        ...
+                      </div>
+                    </Link>
+                  </>
+                ) : (
+                  <div className="flex flex-col gap-4">{neonSigns}</div>
+                )}
+              </div>
+              <div className="flex items-center justify-between mt-3 ">
+                <h1 className="flex-1 px-2 text-base text-stone-100 text-start">
+                  Total:{" "}
+                  <span className="font-semibold">{cart.total.toFixed(2)}</span>
+                  $
+                </h1>
+                <Link
+                  href="/shop/checkout"
+                  onClick={() => setIsCartMenuOpen(false)}
+                  className={cn(
+                    buttonVariants({ variant: "ghost" }),
+                    " rounded-full h-min  max-w-12 basis-auto "
+                  )}
+                >
+                  {"To Checkout ->"}
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
       </SheetContent>
     </Sheet>
   );

@@ -12,8 +12,13 @@ model NeonSign {
     name      String
     price     Decimal  @db.Decimal(10,2)
     image     String
+    currency  Currency @default(USD)
     inStock   Boolean
     quantity  Int @db.UnsignedSmallInt
 
     @@index([name])
+}
+enum Currency {
+    EURO
+    USD
 }

@@ -35,6 +35,7 @@ const OptionBar = ({
     if (value == "price_desc") setSortOptions(SortingOptions.DESC);
     if (value == "none") setSortOptions(SortingOptions.NONE);
   }, []);
+
   const createQueryString = useCallback(
     (
       name: string,
@@ -55,8 +56,8 @@ const OptionBar = ({
   );
   return (
     <div>
-      <h2 className="text-stone-300">Sort by</h2>
-      <div className="flex flex-row flex-wrap sm:gap-0 sm:flex-col">
+      <h2 className="text-stone-500">Sort by</h2>
+      <div className="flex flex-row flex-wrap sm:gap-0 lg:flex-col">
         <span
           onClick={() =>
             router.push(

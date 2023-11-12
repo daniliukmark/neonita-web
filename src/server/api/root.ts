@@ -1,5 +1,6 @@
 import { createTRPCRouter } from "@/server/api/trpc";
 import { neonSignRouter } from "./routers/neonSign";
+import { stripeRouter } from "./routers/stripe";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { neonSignRouter } from "./routers/neonSign";
  */
 export const appRouter = createTRPCRouter({
   neonSign: neonSignRouter,
+  stripe: stripeRouter,
 });
 
 // export type definition of API

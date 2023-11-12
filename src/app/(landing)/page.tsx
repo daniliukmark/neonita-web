@@ -6,7 +6,7 @@ const della_Respira = Della_Respira({ weight: "400", subsets: ["latin"] });
 export default async function Home() {
   return (
     <main className="flex flex-col items-center pt-16 pb-4 sm:pt-20">
-      <TopPromoBanner>
+      {/* <TopPromoBanner>
         <span className="py-4 text-lg font-normal text-center ">
           <span>
             🎃Helloween is approaching! Get your neon sign 50% off.🎃{" "}
@@ -17,7 +17,7 @@ export default async function Home() {
             NEONWEEN
           </span>
         </span>
-      </TopPromoBanner>
+      </TopPromoBanner> */}
       <HotOffers />
       {/* Other produts Compilation or Companies we worked with */}
       {/* Statistics DotGothic16 */}
