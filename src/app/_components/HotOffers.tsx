@@ -17,7 +17,7 @@ const HotOffers: FC<HotOffersProps> = async ({}) => {
           <ProductCard
             imageAspectRatio={1 / 1}
             size="2xl"
-            image={products[0].image}
+            image={"/product_images/" + products[0].image}
             title={products[0].name}
             price={Number(products[0].price)}
             currency="$"
@@ -31,7 +31,7 @@ const HotOffers: FC<HotOffersProps> = async ({}) => {
             <ProductCard
               imageAspectRatio={1 / 1}
               size="sm"
-              image={products[1].image}
+              image={"/product_images/" + products[1].image}
               title={products[1].name}
               price={Number(products[1].price)}
               currency="$"
@@ -43,7 +43,7 @@ const HotOffers: FC<HotOffersProps> = async ({}) => {
             <ProductCard
               imageAspectRatio={1 / 1}
               size="sm"
-              image={products[2].image}
+              image={"/product_images/" + products[2].image}
               title={products[2].name}
               price={Number(products[2].price)}
               currency="$"
@@ -57,7 +57,7 @@ const HotOffers: FC<HotOffersProps> = async ({}) => {
           <ProductCard
             imageAspectRatio={1 / 1}
             size="2xl"
-            image={products[1].image}
+            image={"/product_images/" + products[1].image}
             title={products[1].name}
             price={Number(products[1].price)}
             currency="$"
@@ -71,7 +71,7 @@ const HotOffers: FC<HotOffersProps> = async ({}) => {
           <ProductCard
             imageAspectRatio={1 / 1}
             size="2xl"
-            image={products[2].image}
+            image={"/product_images/" + products[2].image}
             title={products[2].name}
             price={Number(products[2].price)}
             currency="$"

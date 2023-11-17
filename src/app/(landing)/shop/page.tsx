@@ -12,6 +12,7 @@ import {
   useState,
 } from "react";
 import { Decimal } from "@prisma/client/runtime/library";
+import img1 from '@/assets/product_images/"Apollo Karaoke" Neon Logo.jpg';
 enum SortingOptions {
   NONE,
   ASC,
@@ -163,7 +164,6 @@ export default function ShopPage() {
       break;
   }
   if (entry?.isIntersecting && !isFetching && hasNextPage) fetchNextPage();
-
   return (
     <main className="flex flex-col items-center justify-between px-4 pt-24 sm:px-8">
       <div className="flex flex-col w-full gap-4 lg:flex-row lg:max-w-screen-lg 2xl:max-w-screen-xl ">
@@ -177,6 +177,7 @@ export default function ShopPage() {
             <></>
           ) : (
             sortedNeonSignItems.map((item, i) => {
+              console.log(`/src/assets/product_images/${item.image}`);
               return (
                 <div
                   key={i}
@@ -185,8 +186,8 @@ export default function ShopPage() {
                   <ProductCard
                     imageAspectRatio={1 / 1}
                     size="sm"
-                    image={item.image}
-                    title="Neon Sign Pizza Place place place"
+                    image={"/product_images/" + item.image}
+                    title={item.name}
                     price={Number(item.price)}
                     currency="$"
                     id={String(item.id)}

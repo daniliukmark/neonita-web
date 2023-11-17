@@ -140,13 +140,13 @@ export const ShoppingCartItem = ({
             ratio={1 / 1}
           >
             <Image
-              src={neonSign.data.image}
+              src={"/product_images/" + neonSign.data.image}
               sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
               alt="Blured product photo"
               fill
               unoptimized
               placeholder="blur"
-              blurDataURL={neonSign.data.image}
+              blurDataURL={"/product_images/" + neonSign.data.image}
               quality={1}
             />
           </AspectRatio>
@@ -157,22 +157,22 @@ export const ShoppingCartItem = ({
             ratio={1 / 1}
           >
             <Image
-              src={neonSign.data.image}
+              src={"/product_images/" + neonSign.data.image}
               sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
               alt="Blured product photo"
               fill
               unoptimized
               placeholder="blur"
-              blurDataURL={neonSign.data.image}
+              blurDataURL={"/product_images/" + neonSign.data.image}
               quality={1}
             />
           </AspectRatio>
         </div>
         <Image
-          src={neonSign.data.image}
+          src={"/product_images/" + neonSign.data.image}
           fill
           unoptimized
-          alt={neonSign.data.name}
+          alt={"/product_images/" + neonSign.data.name}
           className="object-cover h-full max-h-full m-auto mix-blend-normal max-w-max "
         />
       </div>

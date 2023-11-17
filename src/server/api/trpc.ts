@@ -8,7 +8,7 @@ export async function createTRPCContext({
   req,
   res,
 }: trpcNext.CreateNextContextOptions) {
-  return { db, req };
+  return { db };
 }
 
 const t = initTRPC.context<typeof createTRPCContext>().create({

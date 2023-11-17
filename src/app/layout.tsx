@@ -11,6 +11,7 @@ const inter = Inter({
 export const metadata = {
   title: "Neonita",
   description: "Neonita - Neon Sign producer",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default function RootLayout({

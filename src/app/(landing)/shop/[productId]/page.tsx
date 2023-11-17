@@ -18,13 +18,15 @@ const MainImage = ({ neonSign }: { neonSign: any }) => {
           ratio={1 / 2}
         >
           <Image
-            src={neonSign != null ? neonSign.image : ""}
+            src={neonSign != null ? "/product_images/" + neonSign.image : ""}
             sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
             alt="Blured product photo"
             fill
             unoptimized
             placeholder="blur"
-            blurDataURL={neonSign != null ? neonSign.image : ""}
+            blurDataURL={
+              neonSign != null ? "/product_images/" + neonSign.image : ""
+            }
             quality={1}
           />
         </AspectRatio>
@@ -35,24 +37,28 @@ const MainImage = ({ neonSign }: { neonSign: any }) => {
           ratio={1 / 2}
         >
           <Image
-            src={neonSign != null ? neonSign.image : ""}
+            src={neonSign != null ? "/product_images/" + neonSign.image : ""}
             sizes="(max-width: 768px) 1vw, (max-width: 1200px) 1vw, 1vw"
             alt="Blured product photo"
             fill
             unoptimized
             placeholder="blur"
-            blurDataURL={neonSign != null ? neonSign.image : ""}
+            blurDataURL={
+              neonSign != null ? "/product_images/" + neonSign.image : ""
+            }
             quality={1}
           />
         </AspectRatio>
       </div>
       <Image
-        src={neonSign != null ? neonSign.image : ""}
+        src={neonSign != null ? "/product_images/" + neonSign.image : ""}
         alt="Blured product photo"
         unoptimized
         fill
         placeholder="blur"
-        blurDataURL={neonSign != null ? neonSign.image : ""}
+        blurDataURL={
+          neonSign != null ? "/product_images/" + neonSign.image : ""
+        }
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
         className="object-cover h-full max-h-full m-auto mix-blend-normal max-w-max "
       />
