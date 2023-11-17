@@ -177,7 +177,6 @@ export default function ShopPage() {
             <></>
           ) : (
             sortedNeonSignItems.map((item, i) => {
-              console.log(`/src/assets/product_images/${item.image}`);
               return (
                 <div
                   key={i}
