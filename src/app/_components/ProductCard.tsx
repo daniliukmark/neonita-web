@@ -4,21 +4,18 @@ import Image, { StaticImageData } from "next/image";
 import { cn } from "@/utils/utils";
 import Link from "next/link";
 import { buttonVariants } from "./ui/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { CssVariable } from "next/dist/compiled/@next/font";
 
 const ProductCard = ({
-	imageAspectRatio,
 	image,
 	className,
 	size,
 	id,
 	title,
 	price,
-	isLoading = false,
 	currency = "€",
-	lang,
 }: {
 	imageAspectRatio: number;
 	image: StaticImageData | string;
@@ -28,7 +25,7 @@ const ProductCard = ({
 	title: string;
 	price: number;
 	isLoading?: boolean;
-	currency: "$" | "€";
+	currency?: "$" | "€";
 	background?: CssVariable;
 	lang?: string;
 }) => {
@@ -86,7 +83,7 @@ const ProductCard = ({
 							/>
 						</div>
 					</div>
-					<Link className="w-full h-full cursor-pointer" href={"/shop/" + id}>
+					<Link className="w-full h-full cursor-pointer" href={`/shop/${id}`}>
 						<div
 							className={cn(
 								"absolute inset-0 duration-300 bg-gradient-to-t from-black opacity-0 to-transparent ",
@@ -130,7 +127,7 @@ const ProductCard = ({
 						</div>
 
 						<Link
-							href={"/shop/" + id}
+							href={`/shop/${id}`}
 							className={cn(
 								buttonVariants({
 									variant: "ghost",

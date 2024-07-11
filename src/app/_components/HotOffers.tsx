@@ -20,7 +20,6 @@ const HotOffers: FC = async () => {
 						image={`/product_images/${randomProducts[0].image}`}
 						title={randomProducts[0].name}
 						price={Number(randomProducts[0].price)}
-						currency="$"
 						id={`${randomProducts[0].id}`}
 						className="block w-full h-96 sm:h-full"
 					/>
@@ -34,7 +33,6 @@ const HotOffers: FC = async () => {
 							image={`/product_images/${randomProducts[1].image}`}
 							title={randomProducts[1].name}
 							price={Number(randomProducts[1].price)}
-							currency="$"
 							id={`${randomProducts[1].id}`}
 							className="block w-full"
 						/>
@@ -46,7 +44,6 @@ const HotOffers: FC = async () => {
 							image={`/product_images/${randomProducts[2].image}`}
 							title={randomProducts[2].name}
 							price={Number(randomProducts[2].price)}
-							currency="$"
 							id={`${randomProducts[2].id}`}
 						/>
 					</div>
@@ -60,7 +57,6 @@ const HotOffers: FC = async () => {
 						image={`/product_images/${randomProducts[1].image}`}
 						title={randomProducts[1].name}
 						price={Number(randomProducts[1].price)}
-						currency="$"
 						id={`${randomProducts[1].id}`}
 						className="block w-full h-96"
 					/>
@@ -74,7 +70,6 @@ const HotOffers: FC = async () => {
 						image={`/product_images/${randomProducts[2].image}`}
 						title={randomProducts[2].name}
 						price={Number(randomProducts[2].price)}
-						currency="$"
 						id={`${randomProducts[2].id}`}
 						className="block w-full h-96"
 					/>

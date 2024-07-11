@@ -156,7 +156,7 @@ const StripeCheckout = (p: { lang: string }) => {
 			elements,
 			clientSecret: checkoutQuery.data?.clientSecret,
 			confirmParams: {
-				return_url: `http://www.localhost:3000/${p.lang}/shop/checkout?success=true&amount=${checkoutQuery.data?.totalAmount}`,
+				return_url: `${env.NEXT_PUBLIC_BASE_URL}/${p.lang}/shop/checkout?success=true&amount=${checkoutQuery.data?.totalAmount}`,
 			},
 		});
 

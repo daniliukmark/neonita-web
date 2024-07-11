@@ -8,8 +8,6 @@ import {
 	AccordionTrigger,
 } from "@/app/_components/ui/accordion";
 import AddToCartButton from "@/app/_components/addToCartButton";
-import { api } from "@/utils/api";
-import { useMemo } from "react";
 
 const MainImage = ({ neonSign }: { neonSign: any }) => {
 	return (
