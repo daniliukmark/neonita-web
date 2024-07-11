@@ -1,0 +1,32 @@
+{
+  "footer": {
+    "home-page-link": "Titulinis",
+    "shop-page-link": "Parduotuvė",
+    "faq-page-link": "DUK",
+    "contacts-page-link": "Kontaktai",
+    "copyright": "© 2023 UAB \"Neonita-Reklama\". Visos teisės saugomos."
+  },
+  "navbar": {
+    "home-page-link": "Titulinis",
+    "shop-page-link": "Parduotuvė",
+    "faq-page-link": "DUK",
+    "contacts-page-link": "Kontaktai",
+    "lang-menu": {
+      "en": "Anglų",
+      "lt": "Lietuvių"
+    },
+    "cart": {
+      "title": "Jūsų krepšelis",
+      "total": "Iš Viso: ",
+      "CTA": "Įdėkite savo pasirinktus produktus į krepšelį - jie čia pasirodys. Išbandykite dabar!",
+      "to-checkout": "Mokėti",
+      "cart-item": {}
+    }
+  },
+  "loc-info-card": {
+    "show-on-map": "Parodyti Lokaciją Žemėlapyje"
+  },
+  "product-card": {
+    "view-more": "Daugiau..."
+  }
+}

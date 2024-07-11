@@ -1,0 +1,19 @@
+{
+  "locations-title": "Mūsų lokacijos",
+  "contact-info-title": "Susisiekite su mumis",
+  "contact-info": {
+    "sergej-vasiljev": {
+      "title": "Directorius",
+      "name": "Sergej Vasiljev",
+      "phone-number": "+370 699 45755",
+      "email": "signs@neonita.com"
+    }
+  },
+  "location-info": {
+    "loc-a": {
+      "title": "Neonita ofisas",
+      "loc": "P.Vileisio g. Vilnius, Lietuva",
+      "googleUrl": "https://maps.app.goo.gl/L1WFZtQ4HqoL9FeZ8"
+    }
+  }
+}

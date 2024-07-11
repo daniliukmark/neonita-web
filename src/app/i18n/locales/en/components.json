@@ -1,0 +1,32 @@
+{
+  "footer": {
+    "home-page-link": "Home",
+    "shop-page-link": "Shop",
+    "faq-page-link": "FAQ",
+    "contacts-page-link": "Contact Us",
+    "copyright": "© Copyright 2023 UAB \"Neonita-Reklama\". All Rights Reserved."
+  },
+  "navbar": {
+    "home-page-link": "Home",
+    "shop-page-link": "Shop",
+    "faq-page-link": "FAQ",
+    "contacts-page-link": "Contact Us",
+    "lang-menu": {
+      "en": "English",
+      "lt": "Lithuanian"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "total": "Total: ",
+      "CTA": "Add products of your choice to cart and they will show up here. Go and try it!",
+      "to-checkout": "To Checkout",
+      "cart-item": {}
+    }
+  },
+  "loc-info-card": {
+    "show-on-map": "Show on the map"
+  },
+  "product-card": {
+    "view-more": "View More..."
+  }
+}

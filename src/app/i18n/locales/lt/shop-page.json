@@ -1,0 +1,9 @@
+{
+  "loading-element": "Kraunama...",
+  "sort-params": {
+    "title": "Rūšiavimas",
+    "price-asc": "Kaina: nuo mažiausios iki didžiausios",
+    "price-desc": "Kaina: nuo didžiausios iki mažiausios",
+    "none": "Be rūšiavimo"
+  }
+}

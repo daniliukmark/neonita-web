@@ -1,0 +1,19 @@
+{
+  "locations-title": "Our Locations",
+  "contact-info-title": "Contact Us",
+  "contact-info": {
+    "sergej-vasiljev": {
+      "title": "Director",
+      "name": "Sergej Vasiljev",
+      "phone-number": "+370 699 45755",
+      "email": "signs@neonita.com"
+    }
+  },
+  "location-info": {
+    "loc-a": {
+      "title": "Neonita HQ",
+      "loc": "P.Vileisio g. Vilnius, Lithuania",
+      "googleUrl": "https://maps.app.goo.gl/L1WFZtQ4HqoL9FeZ8"
+    }
+  }
+}

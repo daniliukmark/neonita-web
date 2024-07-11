@@ -1,0 +1,9 @@
+{
+  "loading-element": "Loading...",
+  "sort-params": {
+    "title": "Sort",
+    "price-asc": "Price: low to high",
+    "price-desc": "Price: high to low",
+    "none": "None"
+  }
+}

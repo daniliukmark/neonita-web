@@ -1,12 +1,18 @@
 import { Facebook, Instagram } from "lucide-react";
 import Link from "next/link";
 import { Icons } from "./Icons";
+import { useTranslation } from "../i18n";
 const FACEBOOK_URL = "";
 const TIKTOK_URL = "";
 const YOUTUBE_URL = "";
 const INSTAGRAM_URL = "";
 
-const Footer = ({}) => {
+interface Footer {
+  lang: string;
+}
+
+const Footer = async ({ lang }: Footer) => {
+  const { t } = await useTranslation(lang, "components");
   return (
     <footer className="relative flex flex-col items-center w-full gap-6 mx-auto my-8 h-fit lg:max-w-5xl">
       <div className="flex justify-center gap-12">
@@ -14,25 +20,25 @@ const Footer = ({}) => {
           href="/"
           className="text-sm font-normal duration-300 sm:text-base text-stone-500 hover:text-stone-400 hover:underline"
         >
-          Home
+          {t("footer.home-page-link")}
         </Link>
         <Link
           href="/shop"
           className="text-sm font-normal duration-300 sm:text-base text-stone-500 hover:text-stone-400 hover:underline"
         >
-          Shop
+          {t("footer.shop-page-link")}
         </Link>
         <Link
           href="/faq"
           className="text-sm font-normal duration-300 sm:text-base text-stone-500 hover:text-stone-400 hover:underline"
         >
-          FAQ
+          {t("footer.faq-page-link")}
         </Link>
         <Link
           href="/contact"
           className="text-sm font-normal duration-300 sm:text-base text-stone-500 hover:text-stone-400 hover:underline"
         >
-          Contacts
+          {t("footer.contacts-page-link")}
         </Link>
       </div>
       <div className="flex justify-center gap-8">
@@ -47,7 +53,7 @@ const Footer = ({}) => {
         </Link>
       </div>
       <span className="text-sm font-normal sm:text-base text-stone-500">
-        © Copyright 2023. All Rights Reserved.
+        {t("footer.copyright")}
       </span>
     </footer>
   );
