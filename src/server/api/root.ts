@@ -1,5 +1,4 @@
 import { createTRPCRouter } from "@/server/api/trpc";
-import { neonSignRouter } from "./routers/neonSign";
 import { stripeRouter } from "./routers/stripe";
 import { productsRouter } from "./routers/products";
 
@@ -10,7 +9,6 @@ import { productsRouter } from "./routers/products";
  */
 export const appRouter = createTRPCRouter({
 	product: productsRouter,
-	neonSign: neonSignRouter,
 	stripe: stripeRouter,
 });
 
