@@ -38,16 +38,24 @@ import {
 	CardHeader,
 	CardTitle,
 } from "./ui/card";
+import { useTranslation } from "react-i18next";
 
-const stripe = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+// const stripe = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, {
+// 	locale: "lt",
+// });
 
 export default function CheckoutForm(p: { lang: string }) {
 	const searchParams = useSearchParams();
+	const { t } = useTranslation("checkout");
 	const { cart, clearCart } = useContext(cartContext);
 	const [email, setEmail] = useState("");
 	const [name, setName] = useState("");
 	const [showPaymentMethods, setShowPaymentMethods] = useState(false);
 	const [isClient, setIsClient] = useState(false);
+
+	const stripe = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, {
+		locale: p.lang as "en" | "lt",
+	});
 
 	useEffect(() => {
 		setIsClient(true);
@@ -63,31 +71,37 @@ export default function CheckoutForm(p: { lang: string }) {
 		return (
 			<div className="flex flex-col gap-8 bg-white p-4 rounded-lg w-full text-slate-900">
 				<div>
-					<h1 className="font-semibold text-2xl">Payment Successful</h1>
-					<p>Total: {searchParams.get("amount")}€</p>
-					<p>Payment number: {searchParams.get("payment_intent")}</p>
+					<h1 className="font-semibold text-2xl">{t("success.header")}</h1>
+					<p>
+						{t("success.total")}: {searchParams.get("amount")}€
+					</p>
+					<p>
+						{t("success.pi_id")}: {searchParams.get("payment_intent")}
+					</p>
 				</div>
 				<div>
-					<h1 className="font-semibold text-lg">Thank you for a purchase!</h1>
-					<p>We will send you all the details as soon as possible.</p>
+					<h1 className="font-semibold text-lg">
+						{t("success.message.header")}
+					</h1>
+					<p>{t("success.message.body")}</p>
 				</div>
 				<Link href={`/${p.lang}/shop`}>
-					<Button variant={"secondary"}>Go Back</Button>
+					<Button variant={"secondary"}>{t("success.back")}</Button>
 				</Link>
 			</div>
 		);
 
 	return (
 		<>
-			<h1 className="pb-2 font-semibold text-5xl">Checkout</h1>
+			<h1 className="pb-2 font-semibold text-5xl">{t("checkout")}</h1>
 			{cart.cartItems.length === 0 && !showPaymentMethods && (
 				<p className="font-light">
-					Add products of your choice to cart and they will show up here.{" "}
+					{t("empty-cart.add-products")}{" "}
 					<Link
 						href="/shop"
 						className="text-blue-600 hover:text-blue-500 visited::text-indigo-600 underline"
 					>
-						Go to Shop.
+						{t("empty-cart.go-to-shop")}
 					</Link>
 				</p>
 			)}
@@ -106,14 +120,16 @@ export default function CheckoutForm(p: { lang: string }) {
 						})}
 					</div>
 					<div className="flex flex-row justify-between items-start px-4 py-4">
-						<span className="text-base">Total: {cart.total.toFixed(2)}$</span>
+						<span className="text-base">
+							{t("general.total")}: {cart.total.toFixed(2)}$
+						</span>
 						<Button
 							onMouseDown={handleProceedPayment}
 							variant={"default"}
 							size={"sm"}
 							className="rounded-full"
 						>
-							Proceed Payment -&gt;
+							{t("general.proceed")} -&gt;
 						</Button>
 					</div>
 				</>
@@ -148,6 +164,7 @@ const GetEmail = (p: {
 	setEmail: (value: string) => void;
 	setName: (value: string) => void;
 }) => {
+	const { t } = useTranslation("checkout");
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -163,11 +180,8 @@ const GetEmail = (p: {
 	return (
 		<Card className="bg-stone-900">
 			<CardHeader>
-				<CardTitle>Enter Contact Details</CardTitle>
-				<CardDescription>
-					We will use it to contact you and keep you up to date with updates
-					about the state of your order.
-				</CardDescription>
+				<CardTitle>{t("form.header")}</CardTitle>
+				<CardDescription>{t("form.desc")}</CardDescription>
 			</CardHeader>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -177,9 +191,9 @@ const GetEmail = (p: {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>{t("form.name")}</FormLabel>
 									<FormControl>
-										<Input placeholder="Enter name" {...field} />
+										<Input placeholder={t("form.enter-name")} {...field} />
 									</FormControl>
 									<FormMessage className="text-red-500" />
 								</FormItem>
@@ -190,9 +204,9 @@ const GetEmail = (p: {
 							name="email"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Email</FormLabel>
+									<FormLabel>{t("form.email")}</FormLabel>
 									<FormControl>
-										<Input placeholder="Enter email" {...field} />
+										<Input placeholder={t("form.enter-email")} {...field} />
 									</FormControl>
 									<FormMessage className="text-red-500" />
 								</FormItem>
@@ -202,7 +216,7 @@ const GetEmail = (p: {
 					<CardFooter className="w-full">
 						<div className="flex justify-end w-full">
 							<Button className="mt-4" type="submit">
-								Next
+								{t("form.next")}
 							</Button>
 						</div>
 					</CardFooter>
@@ -218,6 +232,7 @@ const StripeCheckout = (p: { lang: string; email: string; name: string }) => {
 
 	const { cart } = useContext(cartContext);
 	const [errorMessage, setErrorMessage] = useState<string>();
+	const { t } = useTranslation("checkout");
 
 	const checkoutQuery = api.stripe.getClientSecret.useQuery(
 		{ email: p.email, name: p.name, products: cart.cartItems },
@@ -259,7 +274,7 @@ const StripeCheckout = (p: { lang: string; email: string; name: string }) => {
 				<AddressElement options={{ mode: "shipping" }} />
 				<div className="flex justify-end">
 					<Button variant={"secondary"} className="mt-4" type="submit">
-						Pay {checkoutQuery.data?.totalAmount}€
+						{t("payment.pay")} {checkoutQuery.data?.totalAmount}€
 					</Button>
 				</div>
 			</form>

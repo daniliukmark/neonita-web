@@ -1,0 +1,33 @@
+{
+	"checkout": "Atsiskaitymas",
+	"general": {
+		"total": "Viso",
+		"proceed": "Tęsti mokėjimą"
+	},
+	"form": {
+		"header": "Įveskite kontaktinius duomenis",
+		"desc": "Naudosime tai, kad susisiektume su jumis ir informuotume jus apie jūsų užsakymo būseną.",
+		"name": "Vardas",
+		"enter-name": "Įveskite vardą",
+		"email": "El. paštas",
+		"enter-email": "Įveskite el. paštą",
+		"next": "Kitas"
+	},
+	"payment": {
+		"pay": "Mokėti"
+	},
+	"empty-cart": {
+		"add-products": "Į krepšelį pridėkite pasirinktas prekes ir jos pasirodys čia.",
+		"go-to-shop": "Eiti į parduotuvę..."
+	},
+	"success": {
+		"header": "Mokėjimas sėkmingas",
+		"pi_id": "Mokėjimo numeris",
+		"message": {
+			"header": "Ačiū už pirkimą!",
+			"body": "Mes kuo greičiau atsiųsime jums visą informaciją."
+		},
+		"back": "Atgal",
+		"total": "Viso"
+	}
+}

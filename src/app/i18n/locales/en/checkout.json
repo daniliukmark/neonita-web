@@ -1,0 +1,33 @@
+{
+	"checkout": "Checkout",
+	"general": {
+		"total": "Total",
+		"proceed": "Proceed Payment"
+	},
+	"form": {
+		"header": "Enter Contact Details",
+		"desc": "We will use it to contact you and keep you up to date with updates about the state of your order.",
+		"name": "Name",
+		"enter-name": "Enter Name",
+		"email": "Email",
+		"enter-email": "Enter Email",
+		"next": "Next"
+	},
+	"payment": {
+		"pay": "Pay"
+	},
+	"empty-cart": {
+		"add-products": "Add products of your choice to cart and they will show up here.",
+		"go-to-shop": "Go to shop..."
+	},
+	"success": {
+		"header": "Payment Successful",
+		"pi_id": "Payment number",
+		"message": {
+			"header": "Thank you for a purchase!",
+			"body": "We will send you all the details as soon as possible."
+		},
+		"back": "Back",
+		"total": "Total"
+	}
+}
