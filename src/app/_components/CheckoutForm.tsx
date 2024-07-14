@@ -1,44 +1,56 @@
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "../_context/cartContext";
 import { Button } from "./ui/Button";
 import Link from "next/link";
 import { ShoppingCartItem } from "./Navbar";
-import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
-import { PaymentElement } from "@stripe/react-stripe-js";
+import {
+	AddressElement,
+	Elements,
+	useElements,
+	PaymentElement,
+	useStripe,
+} from "@stripe/react-stripe-js";
 import { convertToSubcurrency } from "@/utils/utils";
 import { loadStripe } from "@stripe/stripe-js";
 import { env } from "@/env.mjs";
 import { api } from "@/utils/api";
 import { useSearchParams } from "next/navigation";
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/app/_components/ui/form";
+import { Input } from "@/app/_components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "./ui/card";
 
 const stripe = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function CheckoutForm(p: { lang: string }) {
 	const searchParams = useSearchParams();
 	const { cart, clearCart } = useContext(cartContext);
+	const [email, setEmail] = useState("");
+	const [name, setName] = useState("");
 	const [showPaymentMethods, setShowPaymentMethods] = useState(false);
 	const [isClient, setIsClient] = useState(false);
 
-	const sendDetails = api.stripe.saveDetails.useMutation({
-		onSuccess: () => {
-			clearCart();
-		},
-	});
-
 	useEffect(() => {
 		setIsClient(true);
-		if (
-			searchParams.get("success") &&
-			searchParams.get("payment_intent") &&
-			cart.cartItems.length > 0
-		) {
-			sendDetails.mutate({
-				products: cart.cartItems,
-				paymentIntent: searchParams.get("payment_intent") ?? "error",
-			});
-		}
 	}, []);
 
 	const handleProceedPayment = () => {
@@ -106,7 +118,10 @@ export default function CheckoutForm(p: { lang: string }) {
 					</div>
 				</>
 			)}
-			{cart.cartItems.length > 0 && showPaymentMethods && (
+			{!email && cart.cartItems.length > 0 && showPaymentMethods && (
+				<GetEmail setEmail={setEmail} setName={setName} />
+			)}
+			{email && cart.cartItems.length > 0 && showPaymentMethods && (
 				<>
 					<Elements
 						stripe={stripe}
@@ -116,7 +131,7 @@ export default function CheckoutForm(p: { lang: string }) {
 							currency: "eur",
 						}}
 					>
-						<StripeCheckout lang={p.lang} />
+						<StripeCheckout lang={p.lang} email={email} name={name} />
 					</Elements>
 				</>
 			)}
@@ -124,22 +139,95 @@ export default function CheckoutForm(p: { lang: string }) {
 	);
 }
 
-const StripeCheckout = (p: { lang: string }) => {
-	const { cart } = useContext(cartContext);
+const formSchema = z.object({
+	name: z.string().min(2).max(200),
+	email: z.string().email(),
+});
 
+const GetEmail = (p: {
+	setEmail: (value: string) => void;
+	setName: (value: string) => void;
+}) => {
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			name: "",
+			email: "",
+		},
+	});
+	const handleSubmit = (values: z.infer<typeof formSchema>) => {
+		p.setEmail(values.email);
+		p.setName(values.name);
+	};
+
+	return (
+		<Card className="bg-stone-900">
+			<CardHeader>
+				<CardTitle>Enter Contact Details</CardTitle>
+				<CardDescription>
+					We will use it to contact you and keep you up to date with updates
+					about the state of your order.
+				</CardDescription>
+			</CardHeader>
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(handleSubmit)}>
+					<CardContent className="space-y-4">
+						<FormField
+							control={form.control}
+							name="name"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Name</FormLabel>
+									<FormControl>
+										<Input placeholder="Enter name" {...field} />
+									</FormControl>
+									<FormMessage className="text-red-500" />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="email"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Email</FormLabel>
+									<FormControl>
+										<Input placeholder="Enter email" {...field} />
+									</FormControl>
+									<FormMessage className="text-red-500" />
+								</FormItem>
+							)}
+						/>
+					</CardContent>
+					<CardFooter className="w-full">
+						<div className="flex justify-end w-full">
+							<Button className="mt-4" type="submit">
+								Next
+							</Button>
+						</div>
+					</CardFooter>
+				</form>
+			</Form>
+		</Card>
+	);
+};
+
+const StripeCheckout = (p: { lang: string; email: string; name: string }) => {
 	const stripe = useStripe();
 	const elements = useElements();
-	const checkoutQuery = api.stripe.getClientSecret.useQuery(cart.cartItems, {
-		cacheTime: 0,
-	});
 
+	const { cart } = useContext(cartContext);
 	const [errorMessage, setErrorMessage] = useState<string>();
-	const [loading, setLoading] = useState(false);
 
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		setLoading(true);
+	const checkoutQuery = api.stripe.getClientSecret.useQuery(
+		{ email: p.email, name: p.name, products: cart.cartItems },
+		{
+			cacheTime: 0,
+		},
+	);
 
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
 		if (!stripe || !elements) {
 			return;
 		}
@@ -148,13 +236,12 @@ const StripeCheckout = (p: { lang: string }) => {
 
 		if (submitError) {
 			setErrorMessage(submitError.message);
-			setLoading(false);
 			return;
 		}
 
 		const { error } = await stripe.confirmPayment({
 			elements,
-			clientSecret: checkoutQuery.data?.clientSecret,
+			clientSecret: checkoutQuery.data?.clientSecret ?? "",
 			confirmParams: {
 				return_url: `${env.NEXT_PUBLIC_BASE_URL}/${p.lang}/shop/checkout?success=true&amount=${checkoutQuery.data?.totalAmount}`,
 			},
@@ -169,7 +256,7 @@ const StripeCheckout = (p: { lang: string }) => {
 		<>
 			<form onSubmit={handleSubmit} className="bg-white p-4 border rounded-lg">
 				<PaymentElement />
-
+				<AddressElement options={{ mode: "shipping" }} />
 				<div className="flex justify-end">
 					<Button variant={"secondary"} className="mt-4" type="submit">
 						Pay {checkoutQuery.data?.totalAmount}€
