@@ -89,6 +89,9 @@ export default async function ProductPage({
 								{`${neonSign?.price.toFixed(2)}€`}
 							</h2>
 							<p className="pb-8 font-light text-stone-300">{t("desc")}</p>
+							{neonSign.size.length > 0 && (
+								<span className="text-lg">Size: {neonSign.size} cm</span>
+							)}
 						</div>
 						<div className="flex flex-row justify-end gap-4">
 							<div className="flex flex-row">
@@ -130,16 +133,23 @@ export default async function ProductPage({
 					</div>
 				</div>
 				<div className="top-24 sticky sm:flex flex-col hidden p-4 rounded-xl h-[32rem] basis-2/5">
-					<div>
+					<div className="pb-12">
 						<h1 className="pb-2 font-semibold text-4xl">{neonSign?.name}</h1>
-						<h2 className="pb-2 font-light text-xl">
-							{`${neonSign?.price.toFixed(2)}€`}
-						</h2>
-						<p className="pb-12 font-light text-stone-300">{t("desc")}</p>
+						<div className="flex gap-2">
+							<h2 className="pb-2 font-light text-xl">
+								{`${neonSign?.price.toFixed(2)}€`}
+							</h2>
+						</div>
+						<p className="pb-4 pl-auto font-light text-stone-300">
+							{t("desc")}
+						</p>
+						{neonSign.size.length > 0 && (
+							<span className="text-lg">Size: {neonSign.size} cm</span>
+						)}
 					</div>
-					<div className="flex flex-col items-end gap-4">
-						<div className="flex lg:flex-row flex-col justify-end gap-4">
-							<div className="flex flex-row">
+					<div className="flex flex-col items-end gap-4 w-full">
+						<div className="flex lg:flex-row flex-col justify-between items-center gap-4">
+							<div className="flex flex-row gap-4">
 								<div className="flex items-center content-center gap-2 align-middle">
 									<div className="inline-block bg-green-400 rounded-full w-2 h-2" />
 									<span className="inline-block">

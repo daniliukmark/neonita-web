@@ -10,6 +10,7 @@ export type Product = {
 	currency: string;
 	quantity: number;
 	inStock: boolean;
+	size: string;
 };
 
 export const ProductContext = createContext<{ products: Product[] }>({
