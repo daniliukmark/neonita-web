@@ -353,9 +353,9 @@ const Navbar = ({ lang }: LanguageParams) => {
 					<div className="w-6 h-6 cursor-pointer">
 						<LanguageMenu lang={lang} />
 					</div>
-					<div className="w-6 h-6 cursor-pointer">
+					{/* <div className="w-6 h-6 cursor-pointer">
 						<ShoppingCartMenu lang={lang} />
-					</div>
+					</div> */}
 					<div className="z-30 sm:hidden w-8 h-8 cursor-pointer">
 						<MobileNavigationMenu lang={lang} />
 					</div>

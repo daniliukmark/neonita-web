@@ -93,7 +93,7 @@ export default async function ProductPage({
 								<span className="text-lg">Size: {neonSign.size} cm</span>
 							)}
 						</div>
-						<div className="flex flex-row justify-end gap-4">
+						{/* <div className="flex flex-row justify-end gap-4">
 							<div className="flex flex-row">
 								<div className="flex items-center content-center gap-2 align-middle">
 									<div className="inline-block bg-green-400 rounded-full w-2 h-2" />
@@ -107,7 +107,7 @@ export default async function ProductPage({
 								itemId={`${neonSign.id}`}
 								price={parseFloat(neonSign.price.toFixed(2))}
 							/>
-						</div>
+						</div> */}
 					</div>
 					<div className="mb-8 p-4 rounded-xl w-full text-lg">
 						<Accordion type="single" collapsible className="w-full">
@@ -147,7 +147,7 @@ export default async function ProductPage({
 							<span className="text-lg">Size: {neonSign.size} cm</span>
 						)}
 					</div>
-					<div className="flex flex-col items-end gap-4 w-full">
+					{/* <div className="flex flex-col items-end gap-4 w-full">
 						<div className="flex lg:flex-row flex-col justify-between items-center gap-4">
 							<div className="flex flex-row gap-4">
 								<div className="flex items-center content-center gap-2 align-middle">
@@ -163,7 +163,7 @@ export default async function ProductPage({
 								price={parseFloat(neonSign.price.toFixed(2))}
 							/>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</main>
