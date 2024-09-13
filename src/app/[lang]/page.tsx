@@ -3,6 +3,7 @@ import HotOffers from "../_components/HotOffers";
 import pepsiImage from '@/assets/"Pepsi-Cola" Hanging Blue Neon Logo.jpg';
 import Image from "next/image";
 import EmailForm from "../_components/emailForm";
+import { useTranslation } from "../i18n";
 
 const della_Respira = Della_Respira({ weight: "400", subsets: ["latin"] });
 interface HomePageProps {
@@ -12,6 +13,7 @@ interface HomePageProps {
 }
 
 export default async function HomePage({ params: { lang } }: HomePageProps) {
+	const { t } = await useTranslation(lang, "email-form", {});
 	return (
 		<main className="flex flex-col items-center gap-4 pt-16 sm:pt-20 pb-4">
 			<HotOffers />
@@ -28,11 +30,10 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 					</div>
 					<div className="w-full max-w-lg h-full">
 						<h1 className="pb-4 font-semibold text-4xl leading-none tracking-tight">
-							Make A Neon Sign For You.
+							{t("title")}
 						</h1>
 						<p className="pb-4 text-muted-foreground text-sm">
-							Write a description of a sign you want, click &rdquo;Send&rdquo;.
-							Then we will reach out to you, design it and ship it to you.
+							{t("description")}
 						</p>
 						<div>
 							<EmailForm />

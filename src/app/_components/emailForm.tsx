@@ -20,6 +20,8 @@ const formSchema = z.object({
 });
 
 const EmailForm = () => {
+	const { t } = useTranslation("email-form");
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -44,7 +46,7 @@ const EmailForm = () => {
 							<FormControl>
 								<Textarea
 									className="h-64 resize-none"
-									placeholder="I want a neon sign for.."
+									placeholder={t("form.placeholder")}
 									{...field}
 								/>
 							</FormControl>
@@ -55,7 +57,7 @@ const EmailForm = () => {
 
 				<div className="flex justify-end mt-auto w-full">
 					<Button className="mt-4" size={"lg"} type="submit">
-						Send
+						{t("form.send")}
 					</Button>
 				</div>
 			</form>

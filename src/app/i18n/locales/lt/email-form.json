@@ -1,0 +1,9 @@
+{
+	"title": "Sukurkite neoninę reklamą jums.",
+	"description": "Parašykite norimos reklamos aprašymą, spustelėkite „Siųsti“. Tada mes su jumis susisieksime,suprojektuosime ją ir išsiųsime jums.",
+	"form": {
+		"placeholder": "Noriu užsakyti neoninę reklamą mano verslui...",
+		"submitButton": "Siųsti",
+		"errorMessage": "Įveskite tinkamą žinutę."
+	}
+}

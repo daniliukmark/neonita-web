@@ -1,0 +1,9 @@
+{
+    "title": "Make A Neon Sign For You.",
+    "description": "Write a description of a sign you want, click “Send”. Then we will reach out to you, design it and ship it to you.",
+    "form": {
+      "placeholder": "I want a neon sign for..",
+      "submitButton": "Send",
+      "errorMessage": "Please enter a valid message."
+    }
+}
