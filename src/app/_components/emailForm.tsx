@@ -57,7 +57,7 @@ const EmailForm = () => {
 
 				<div className="flex justify-end mt-auto w-full">
 					<Button className="mt-4" size={"lg"} type="submit">
-						{t("form.send")}
+						{t("form.submitButton")}
 					</Button>
 				</div>
 			</form>
