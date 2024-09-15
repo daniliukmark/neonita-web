@@ -143,7 +143,7 @@ export default async function ProductPage({
 						<p className="pb-4 pl-auto font-light text-stone-300">
 							{t("desc")}
 						</p>
-						{neonSign.size.length > 0 && (
+						{neonSign.size?.length > 0 && (
 							<span className="text-lg">Size: {neonSign.size} cm</span>
 						)}
 					</div>

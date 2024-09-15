@@ -19,7 +19,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 			<HotOffers />
 
 			<div className="mx-auto px-4 w-full lg:max-w-screen-lg 2xl:max-w-screen-xl lg:h-[30rem]">
-				<div className="flex gap-8 bg-stone-900 p-6 border rounded-xl h-full">
+				<div className="flex gap-8 border-2 bg-stone-900 p-6 rounded-xl h-full">
 					<div className="sm:inline-block relative hidden bg-black rounded-lg w-full overflow-hidden">
 						<Image
 							src={pepsiImage}
