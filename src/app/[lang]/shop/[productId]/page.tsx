@@ -89,7 +89,7 @@ export default async function ProductPage({
 								{`${neonSign?.price.toFixed(2)}€`}
 							</h2>
 							<p className="pb-8 font-light text-stone-300">{t("desc")}</p>
-							{neonSign.size.length > 0 && (
+							{neonSign.size && neonSign.size.length > 0 && (
 								<span className="text-lg">Size: {neonSign.size} cm</span>
 							)}
 						</div>
